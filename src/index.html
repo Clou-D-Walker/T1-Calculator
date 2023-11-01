@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Calculator Using Tailwind CSS</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body class="flex justify-center items-center w-screen h-screen">
+    <div class="moving-background"></div>
+    <div
+      class="p-4 border border-solid shadow-white border-white-400 bg-white rounded-xl w-72 h-50"
+    >
+      <p
+        id="outputScreen"
+        class="mb-5 p-5 font-extrabold rounded-xl text-black bg-white text-right"
+      ></p>
+      <div class="grid grid-cols-4 gap-4">
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-200 p-4"
+          onclick="clr()"
+        >
+          <i class="fas fa-trash"></i>
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-200 p-4"
+          onclick="del()"
+        >
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-200 p-4"
+          onclick="display('%')"
+        >
+          <i class="fa-solid fa-percent"></i>
+        </button>
+        <button
+          class="rounded-full border-solid borde`r-gray-500 bg-red-500 p-4 text-white"
+          onclick="display('/')"
+        >
+          <i class="fa-solid fa-divide"></i>
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('7')"
+        >
+          7
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('8')"
+        >
+          8
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('9')"
+        >
+          9
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-red-500 p-4 text-white"
+          onclick="display('*')"
+        >
+          <i class="fa-solid fa-asterisk"></i>
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('4')"
+        >
+          4
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('5')"
+        >
+          5
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('6')"
+        >
+          6
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-red-500 p-4 text-white"
+          onclick="display('-')"
+        >
+          <i class="fas fa-minus"></i>
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('1')"
+        >
+          1
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('2')"
+        >
+          2
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('3')"
+        >
+          3
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-red-500 p-4 text-white"
+          onclick="display('+')"
+        >
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('0')"
+        >
+          0
+        </button>
+        <button
+          class="rounded-full border-solid border-gray-500 bg-gray-300 p-4 text-black"
+          onclick="display('.')"
+        >
+          .
+        </button>
+
+        <button
+          class="col-span-2 rounded-full border-solid border-gray-500 bg-red-500 p-4 text-white"
+          onclick="calc()"
+        >
+          <i class="fa-sharp fa-solid fa-equals"></i>
+        </button>
+      </div>
+    </div>
+
+    <style>
+      body {
+        background-color: #f0f0f0;
+        overflow: hidden;
+      }
+
+      .moving-background {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background: linear-gradient(to right, #ff7e5e, #feb47b, #ff7e5e);
+        background-size: 200% 100%;
+        animation: gradient 10s ease infinite;
+      }
+
+      @keyframes gradient {
+        0% {
+          background-position: 100% 50%;
+        }
+
+        100% {
+          background-position: 0 50%;
+        }
+      }
+    </style>
+
+    <script>
+      const outputScreen = document.getElementById("outputScreen");
+
+      const display = (value) => {
+        outputScreen.textContent += value;
+      };
+
+      const clr = () => {
+        outputScreen.textContent = "";
+      };
+
+      const del = () => {
+        let output = outputScreen.textContent;
+        output = output.substring(0, output.length - 1);
+        outputScreen.textContent = output;
+      };
+
+      const calc = () => {
+        try {
+          const expression = outputScreen.textContent;
+          const result = eval(expression);
+          outputScreen.textContent = result;
+        } catch (error) {
+          outputScreen.textContent = "Error";
+        }
+      };
+    </script>
+  </body>
+</html>
